@@ -1,3 +1,25 @@
 
 // Evoke work flow and blueprint. 
 zoho.crm.updateRecord("Leads",id,{"Owner":Simphiwe},{"trigger":{"workflow","blueprint","approval"}});
+
+
+//Paging solution
+
+mp = Map();
+pages = {1,2,3,4,5,6};
+all_leads = List();
+for each  number in pages
+{
+	leads = zoho.crm.getRecords("Leads",number,200);
+	//leads = zoho.crm.searchRecords("Leads","(opt_in:equals:false)");
+	all_leads.addAll(leads);
+	for each  lead_ in all_leads
+	{
+    // DO SOMETHING
+	}
+	info all_leads.size();
+	if(leads.size() < 200)
+	{
+		break;
+	}
+}
