@@ -1,0 +1,3 @@
+
+// Evoke work flow and blueprint. 
+zoho.crm.updateRecord("Leads",id,{"Owner":Simphiwe},{"trigger":{"workflow","blueprint","approval"}});
