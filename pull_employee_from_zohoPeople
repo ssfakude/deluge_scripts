@@ -1,0 +1,28 @@
+void GetZohoPeopleUsers()
+{
+	access_token = "1000.79db3ed41e148f1192598241e6c79cd0.********************************";
+	header_data = Map();
+	header_data.put("Authorization","Zoho-oauthtoken " + access_token);
+	All_empoyees = invokeurl
+	[
+		url :"https://people.zoho.com/people/api/forms/P_EmployeeView/records?sIndex=0&limit=200"
+		type :GET
+		headers:header_data
+	];
+	counter = 0;
+	for each  employee in All_empoyees
+	{
+		First_Name = employee.get("Full Names as per ID");
+		Last_Name = employee.get("Last Name");
+		work_email = employee.get("Work Email Address");
+		Mobile = employee.get("Mobile Phone");
+		Reporting_to = employee.get("Reporting To");
+		Department = employee.get("Department");
+		Designation = employee.get("Designation Name");
+		EmployeeID = employee.get("Employee ID");
+		recordId = employee.get("recordId");
+		info employee.get("ownerName");
+		counter = counter + 1;
+	}
+	info " - " + counter;
+}
