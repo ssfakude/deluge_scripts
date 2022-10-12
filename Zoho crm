@@ -23,3 +23,38 @@ for each  number in pages
 		break;
 	}
 }
+
+
+/// Retrive ticket content
+
+getthreads = zoho.desk.getRelatedRecords(orgid,"threads","tickets",ticketId,0,1);
+threadid = getthreads.getJSON("data").getJSON("id");
+getthreadcontent = zoho.desk.getRelatedRecordById(orgid,"threads",threadid,"tickets",ticketId).getJSON("content");
+// updateticket = zoho.desk.update(orgid,"tickets",ticketId,{"cf":{"cf_description_cf":getthreadcontent}});
+// info getthreadcontent;
+Multi_Line = getthreadcontent.replaceAll("<(.|\n)*?>","").replaceAll("&nbsp;"," ").replaceAll("&amp;","&");
+info Multi_Line.getSuffix("Hi");
+
+
+ZOho desk Mass Update
+
+ORGID = 7255****;
+list = {0,1,2,3,4,5,6,7};
+for each  rec in list
+{
+	start = rec * 100;
+	searchValue = {"cf":{"cf_creator_record_id":""}};
+	//search = zoho.desk.searchRecords(ORGID,"Tickets",searchValue, 0,100).getJSON("data");
+	search = zoho.desk.searchRecords(ORGID,"tickets",start,100).getJSON("data");
+	for each  contact in search
+	{
+		if(contact.getJSON("cf").get("cf_1_custom_field") != null)
+		{
+			info contact.getJSON("cf_1_custom_field_1") + " - " + contact.getJSON("cf").get("cf_1_custom_field") + "\n";
+		}
+		//contactids = contact.getJSON("id");
+		// update =
+		// zoho.desk.update(ORGID,"contacts",contactids,{"city":city});
+		// info update;
+	}
+}
